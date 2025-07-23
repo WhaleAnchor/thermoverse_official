@@ -1,0 +1,116 @@
+import { useState, useRef, useEffect } from 'react'
+import Image from 'next/image'
+
+export default function Header() {
+  const [open, setOpen] = useState(false)
+  const [show, setShow] = useState(true)
+  const [lastY, setLastY] = useState(0)
+  const menuRef = useRef(null)
+
+  // Show/hide header on scroll
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY
+      setShow(y < lastY || y < 10)
+      setLastY(y)
+    }
+    window.addEventListener('scroll', onScroll)
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [lastY])
+
+  // Close when clicking outside the drawer
+  useEffect(() => {
+    const onClickOutside = e => {
+      if (open && menuRef.current && !menuRef.current.contains(e.target)) {
+        setOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', onClickOutside)
+    return () => document.removeEventListener('mousedown', onClickOutside)
+  }, [open])
+
+  return (
+    <>
+      {/* Suspended, auto-hiding header */}
+      <header
+        className={`
+          fixed left-1/2 top-4 transform -translate-x-1/2
+          w-[90%] max-w-7xl z-50
+          bg-white/50 backdrop-blur-md rounded-xl shadow-lg
+          transition-all duration-300 ease-in-out
+          ${show ? 'translate-y-0' : '-translate-y-full -mt-4'}
+        `}
+      >
+        <div className="flex items-center justify-between px-4 py-2">
+          <a href="/">
+            <Image src="/img/darklogo.png" alt="ThermoVerse" width={150} height={50} />
+          </a>
+
+          <nav className="hidden md:flex space-x-6 text-gray-700">
+            <a href="/about" className="hover:text-blue-600">About</a>
+            <a href="/innovation" className="hover:text-blue-600">Innovation</a>
+            <a href="/productconsultation" className="hover:text-blue-600">Product Consultation</a>
+            <a href="/energyservices" className="hover:text-blue-600">Energy Services</a>
+          </nav>
+            
+          {/* Mobile Open Button (when menu is closed) */}
+{!open && (
+  <button
+    className="md:hidden text-gray-700 font-medium px-3 py-1"
+    onClick={e => {
+      e.stopPropagation()
+      setOpen(true)
+    }}
+    aria-label="Open menu"
+  >
+    Menu
+  </button>
+)}
+
+{/* Mobile Close Button (when menu is open) */}
+{open && (
+  <button
+    className="md:hidden text-gray-700 font-medium px-3 py-1"
+    onMouseDown={e => {
+      e.stopPropagation()
+      e.preventDefault()   // prevent the subsequent click
+      setOpen(false)
+    }}
+    aria-label="Close menu"
+  >
+    Close
+  </button>
+)}
+        </div>
+      </header>
+
+      {/* Backdrop below header only */}
+      {open && (
+        <div
+          className="fixed inset-x-0 top-[calc(4rem+1rem)] bottom-0 bg-black/30 backdrop-blur-sm z-40"
+          onClick={() => setOpen(false)}
+        />
+      )}
+
+      {/* Drawer card below header */}
+      {open && (
+        <div
+          ref={menuRef}
+          className={`
+            fixed inset-x-4 top-[calc(4rem+1rem)]
+            bg-white/90 backdrop-blur-lg
+            rounded-xl shadow-2xl p-6
+            z-50 animate-slide-fade
+            flex flex-col items-end space-y-4 text-lg
+          `}
+          onClick={e => e.stopPropagation()}
+        >
+          <a href="/about" className="block text-right hover:text-blue-600">About</a>
+          <a href="/innovation" className="block text-right hover:text-blue-600">Innovation</a>
+          <a href="/productconsultation" className="block text-right hover:text-blue-600">Product Consultation</a>
+          <a href="/energyservices" className="block text-right hover:text-blue-600">Energy Services</a>
+        </div>
+      )}
+    </>
+  )
+}
