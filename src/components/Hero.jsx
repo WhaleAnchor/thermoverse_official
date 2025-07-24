@@ -14,10 +14,10 @@ export default function Hero() {
         {/* Optional fallback */}
       </video>
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-white text-center px-4">
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold">
-          Smart City Innovation
+        <h1 className="font-primary text-4xl md:text-6xl lg:text-7xl font-bold">
+          SMART CITY INNOVATION
         </h1>
-        <p className="mt-4 text-lg md:text-2xl">
+        <p className="font-secondary mt-4 text-lg md:text-2xl">
           Powering Global Efficiency From Ceiling To Grid
         </p>
         <a

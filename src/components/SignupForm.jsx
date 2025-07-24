@@ -11,7 +11,7 @@ export default function SignupForm() {
                 type="email"
                 placeholder="Email address"
             />
-            <button className="px-6 py-3 bg-blue-600 text-white rounded-r-md hover:bg-blue-700">
+            <button className="font-secondary **:px-6 py-3 bg-blue-600 text-white rounded-r-md hover:bg-blue-700">
                 Sign Up
             </button>
         </form>

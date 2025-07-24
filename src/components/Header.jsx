@@ -47,10 +47,10 @@ export default function Header() {
           </a>
 
           <nav className="hidden md:flex space-x-6 text-gray-700">
-            <a href="/about" className="hover:text-blue-600">About</a>
-            <a href="/innovation" className="hover:text-blue-600">Innovation</a>
-            <a href="/productconsultation" className="hover:text-blue-600">Product Consultation</a>
-            <a href="/energyservices" className="hover:text-blue-600">Energy Services</a>
+            <a href="/about" className="hover:text-blue-600 font-secondary">About</a>
+            <a href="/innovation" className="hover:text-blue-600 font-secondary">Innovation</a>
+            <a href="/productconsultation" className="hover:text-blue-600 font-secondary">Product Consultation</a>
+            <a href="/energyservices" className="hover:text-blue-600 font-secondary">Energy Services</a>
           </nav>
             
           {/* Mobile Open Button (when menu is closed) */}
@@ -61,7 +61,7 @@ export default function Header() {
       e.stopPropagation()
       setOpen(true)
     }}
-    aria-label="Open menu"
+    aria-label="Open menu" 
   >
     Menu
   </button>
@@ -105,10 +105,10 @@ export default function Header() {
           `}
           onClick={e => e.stopPropagation()}
         >
-          <a href="/about" className="block text-right hover:text-blue-600">About</a>
-          <a href="/innovation" className="block text-right hover:text-blue-600">Innovation</a>
-          <a href="/productconsultation" className="block text-right hover:text-blue-600">Product Consultation</a>
-          <a href="/energyservices" className="block text-right hover:text-blue-600">Energy Services</a>
+          <a href="/about" className="font-secondaryblock text-right hover:text-blue-600">About</a>
+          <a href="/innovation" className="font-secondary block text-right hover:text-blue-600">Innovation</a>
+          <a href="/productconsultation" className="font-secondary block text-right hover:text-blue-600">Product Consultation</a>
+          <a href="/energyservices" className="font-secondary block text-right hover:text-blue-600">Energy Services</a>
         </div>
       )}
     </>
