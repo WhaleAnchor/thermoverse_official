@@ -1,12 +1,17 @@
 import { useState, useRef, useEffect } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 export default function Header() {
   const [open, setOpen] = useState(false)
   const [show, setShow] = useState(true)
   const [lastY, setLastY] = useState(0)
   const menuRef = useRef(null)
+  const router = useRouter()
 
+  // helper to know if this is the active page (startsWith for better matching)
+  const isActive = (path) => router.asPath.startsWith(path)
   // Show/hide header on scroll
   useEffect(() => {
     const onScroll = () => {
@@ -41,16 +46,48 @@ export default function Header() {
           ${show ? 'translate-y-0' : '-translate-y-full -mt-4'}
         `}
       >
-        <div className="flex items-center justify-between px-4 py-2">
+        <div className="flex items-center justify-between px-6 py-4">
           <a href="/">
-            <Image src="/img/darklogo.png" alt="ThermoVerse" width={150} height={50} />
+            <Image src="/img/darklogo.png" alt="ThermoVerse" width={300} height={100} />
           </a>
 
-          <nav className="hidden md:flex space-x-6 text-gray-700">
-            <a href="/about" className="hover:text-blue-600 font-secondary">About</a>
-            <a href="/innovation" className="hover:text-blue-600 font-secondary">Innovation</a>
-            <a href="/productconsultation" className="hover:text-blue-600 font-secondary">Product Consultation</a>
-            <a href="/energyservices" className="hover:text-blue-600 font-secondary">Energy Services</a>
+          <nav className="hidden md:flex space-x-12 text-gray-700 text-xl">
+            <Link
+              href="/about"
+              className={`
+                font-secondary hover:text-blue-600
+                ${isActive('/about') ? 'font-bold' : ''}
+              `}
+            >
+              About
+            </Link>
+            <Link
+              href="/innovation"
+              className={`
+                font-secondary hover:text-blue-600
+                ${isActive('/innovation') ? 'font-bold' : ''}
+              `}
+            >
+              Innovation
+            </Link>
+            <Link
+              href="/productconsultation"
+              className={`
+                font-secondary hover:text-blue-600
+                ${isActive('/productconsultation') ? 'font-bold' : ''}
+              `}
+            >
+              Product Consultation
+            </Link>
+            <Link
+              href="/energyservices"
+              className={`
+                font-secondary hover:text-blue-600
+                ${isActive('/energyservices') ? 'font-bold' : ''}
+              `}
+            >
+              Energy Services
+            </Link>
           </nav>
             
           {/* Mobile Open Button (when menu is closed) */}
@@ -105,7 +142,7 @@ export default function Header() {
           `}
           onClick={e => e.stopPropagation()}
         >
-          <a href="/about" className="font-secondaryblock text-right hover:text-blue-600">About</a>
+          <a href="/about" className="font-secondary block text-right hover:text-blue-600">About</a>
           <a href="/innovation" className="font-secondary block text-right hover:text-blue-600">Innovation</a>
           <a href="/productconsultation" className="font-secondary block text-right hover:text-blue-600">Product Consultation</a>
           <a href="/energyservices" className="font-secondary block text-right hover:text-blue-600">Energy Services</a>
