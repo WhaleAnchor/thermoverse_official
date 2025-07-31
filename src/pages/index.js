@@ -1,7 +1,8 @@
-// pages/index.jsx
-import Hero from '../components/Hero'
+// pages/index.js
+import Hero from '@/components/Hero'
 import LogoCarousel from '@/components/LogoCarousel'
-import SignupForm from '../components/SignupForm'
+import SignupForm from '@/components/SignupForm'
+import Footer from '@/components/Footer'
 
 export default function Home() {
   return (
@@ -9,6 +10,7 @@ export default function Home() {
       <Hero />
       <LogoCarousel />
       <SignupForm />
+      <Footer />
     </>
   )
 }

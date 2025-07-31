@@ -1,42 +1,57 @@
+// pages/_app.js
 import '../styles/globals.css'
 import { useState, useEffect } from 'react'
-import Image from 'next/image'
+import { useRouter } from 'next/router'
 import Header from '@/components/Header'
+import SplashScreen from '@/components/SplashScreen'
 
 export default function MyApp({ Component, pageProps }) {
-  // show splash overlay
-  const [showSplash, setShowSplash] = useState(true)
+  const router = useRouter()
+  const [showSplash, setShowSplash] = useState(false)
 
   useEffect(() => {
-    // unmount splash after 2s (animation duration)
-    const timeout = setTimeout(() => setShowSplash(false), 2500)
-    return () => clearTimeout(timeout)
-  }, [])
+    if (!router.isReady || router.pathname !== '/') return
+
+    const HOUR = 1000 * 60 * 60
+    const now = Date.now()
+    const last = localStorage.getItem('lastSplash')
+    const seenThisSession = sessionStorage.getItem('splashShown')
+
+    // 1) If we've already shown in this tab, skip entirely
+    if (seenThisSession) {
+      console.log('[Splash] skip: seenThisSession')
+      return
+    }
+
+    // 2) Throttle: if never shown or >1h since last, show
+    if (!last || now - parseInt(last, 10) > HOUR) {
+      console.log('[Splash] show: first or over an hour')
+      setShowSplash(true)
+      localStorage.setItem('lastSplash', now.toString())
+    } else {
+      console.log('[Splash] skip: within throttle window')
+    }
+
+    // 3) Mark session so we never show again on refresh/spa
+    sessionStorage.setItem('splashShown', 'true')
+
+    // 4) If we decided to show it, auto-hide after animation length
+    if (!last || now - parseInt(last, 10) > HOUR) {
+      const timer = setTimeout(() => {
+        console.log('[Splash] hiding after timeout')
+        setShowSplash(false)
+      }, 2000) // match your animation duration
+      return () => clearTimeout(timer)
+    }
+  }, [router.isReady, router.pathname])
 
   return (
     <>
-      {/* Your persistent header */}
       <Header />
 
-      {/* Main page content */}
-      <Component {...pageProps} />
+      {showSplash && <SplashScreen />}
 
-      {/* Splash overlay */}
-      {showSplash && (
-        <div
-          id="splash-screen"
-          className="fixed inset-0 z-[9999] flex items-center justify-center bg-white "
-        >
-          <div id="splash-logo" className="animate-logo-grow">
-            <Image
-              src="/img/darklogo.png"
-              alt="ThermoVerse"
-              width={300}
-              height={100}
-            />
-          </div>
-        </div>
-      )}
+      <Component {...pageProps} />
     </>
   )
 }

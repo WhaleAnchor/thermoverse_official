@@ -7,8 +7,8 @@ import { useRouter } from 'next/router'
 const navItems = [
   { path: '/about', label: 'About' },
   { path: '/innovation', label: 'Innovation' },
-  { path: '/productconsultation', label: 'Product Consultation' },
-  { path: '/energyservices', label: 'Energy Services' },
+  { path: '/product', label: 'Product' },
+  { path: '/services', label: 'Services' },
 ]
 
 export default function Header() {
