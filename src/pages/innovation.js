@@ -1,12 +1,10 @@
 // pages/innovation.js
 import LogoCarousel from '@/components/LogoCarousel'
 import Footer from '@/components/Footer'
-import Header from '@/components/Header'
 
 export default function Innovation() {
   return (
     <div className="flex flex-col min-h-screen">
-      <Header />
       <main className="flex-grow pt-32">
         {/* Hero / Title */}
         <section className="pt-8 pb-8 bg-gray-100">

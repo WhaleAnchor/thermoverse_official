@@ -1,5 +1,4 @@
 // pages/about.js
-import Header from '@/components/Header'
 import LogoCarousel from '@/components/LogoCarousel'
 import Footer from '@/components/Footer'
 
@@ -7,7 +6,6 @@ export default function About() {
   return (
     <>
       {/* Site Header */}
-      <Header />
       <main className="pt-32">
 
       {/* Hero / Page Title */}

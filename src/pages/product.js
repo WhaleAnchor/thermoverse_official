@@ -1,11 +1,9 @@
-import Header from '@/components/Header'
-import LogoCarousel from '@/components/LogoCarousel'
+// pages/product.js
 import Footer from '@/components/Footer'
 
 export default function Product() {
   return (
     <div className="flex flex-col min-h-screen">
-      <Header />
       <main className="flex-grow pt-32">
         {/* hero */}
         <section className="pt-8 pb-8 bg-gray-100">

@@ -1,11 +1,9 @@
-import Header from '@/components/Header'
-import LogoCarousel from '@/components/LogoCarousel'
+// pages/services.js
 import Footer from '@/components/Footer'
 
 export default function Services() {
   return (
     <div className="flex flex-col min-h-screen">
-      <Header />
       <main className="flex-grow pt-32">
         <section className="pt-8 pb-8 bg-gray-100">
           <div className="max-w-4xl mx-auto px-4 text-center">
